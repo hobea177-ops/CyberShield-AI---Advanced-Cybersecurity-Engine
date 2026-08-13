@@ -16,6 +16,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 🔑 المفتاح الحر الخاص بك
+GEMINI_KEY = "AQ.Ab8RN6K8Iab_d90cv_b_Lxj4DFVyqzK8D2rTXzJNSFOG6i0QDg"
+
 class AuditRequest(BaseModel):
     url: str
 
@@ -49,41 +52,31 @@ async def audit_target(data: AuditRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-# 🤖 محرك ذكاء اصطناعي خارق ومباشر (بدون مفاتيح API)
 @app.post("/api/ai-consultant")
 async def ai_consultant(data: AIAnalysisRequest):
     try:
-        # استخدام نقطة نهاية مفتوحة للذكاء الاصطناعي الفائق
-        endpoint = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
-        
-        prompt = f"<s>[INST] أنت خبير ومستشار أمن سيبراني واختبار اختراق احترافي. أجب عن هذا السؤال باللغة العربية بأسلوب تحليلي ودقيق:\n\nالسؤال: {data.query} [/INST]"
+        endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
         
         payload = {
-            "inputs": prompt,
-            "parameters": {
-                "max_new_tokens": 512,
-                "temperature": 0.7
-            }
+            "contents": [{
+                "parts": [{
+                    "text": f"أنت مستشار وخبير أمن سيبراني واختبار اختراق احترافي. أجب عن سؤال المستخدم بشكل دقيق ومفصل ومخصص باللغة العربية:\n\nالسؤال: {data.query}"
+                }]
+            }]
         }
         
-        response = requests.post(endpoint, json=payload, timeout=20)
-        
-        if response.status_code == 200:
-            res_json = response.json()
-            if isinstance(res_json, list) and len(res_json) > 0:
-                full_text = res_json[0].get("generated_text", "")
-                # استخلاص إجابة الذكاء الاصطناعي فقط
-                clean_response = full_text.split("[/INST]")[-1].strip()
-                return {"query": data.query, "ai_response": clean_response}
-        
-        # خطة بديلة سريعة في حال تحذير السيرفر المفتوح
-        return {
-            "query": data.query,
-            "ai_response": f"تم تحليل سؤالك السيبراني حول ({data.query}): ينصح دائماً بتطبيق أفضل ممارسات التشفير، والتحقق من الهويات عبر التوثيق الثنائي (2FA)، ومراجعة السجلات بشكل دوري لتفادي الثغرات."
-        }
+        response = requests.post(endpoint, json=payload, headers={"Content-Type": "application/json"}, timeout=15)
+        res_json = response.json()
+
+        if response.status_code == 200 and "candidates" in res_json:
+            ai_text = res_json['candidates'][0]['content']['parts'][0]['text']
+            return {"query": data.query, "ai_response": ai_text}
+        else:
+            err_msg = res_json.get("error", {}).get("message", "خطأ في الاستجابة")
+            return {"query": data.query, "ai_response": f"خطأ من سيرفر الذكاء الاصطناعي: {err_msg}"}
 
     except Exception as e:
-        return {"query": data.query, "ai_response": f"خطأ في الاتصال بالذكاء الاصطناعي: {str(e)}"}
+        return {"query": data.query, "ai_response": f"حدث خطأ بالنظام: {str(e)}"}
 
 @app.get("/")
 async def read_index():
