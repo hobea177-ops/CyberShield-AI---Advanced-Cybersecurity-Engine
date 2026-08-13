@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield Ultra | المطور همام علي ياسين</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #07090e;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --accent-cyan: #38bdf8;
+            --accent-purple: #a855f7;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        header {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-title i {
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+        }
+
+        .brand-text h1 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .author-badge {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #d8b4fe;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cyber-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .cyber-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .card-header i {
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+        }
+
+        .card-header h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            background: rgba(7, 9, 14, 0.8);
+            border: 1px solid var(--border-glow);
+            border-radius: 10px;
+            padding: 14px;
+            color: #fff;
+            font-size: 0.92rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cyan {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, #9333ea, #7e22ce);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(147, 51, 234, 0.3);
+        }
+
+        .output-panel {
+            margin-top: 16px;
+            background: rgba(7, 9, 14, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            display: none;
+            white-space: pre-wrap;
+            border-right: 4px solid var(--accent-cyan);
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 100%;
+        }
+
+        footer strong {
+            color: var(--accent-cyan);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <div class="brand-title">
+            <i class="fa-solid fa-shield-cat"></i>
+            <div class="brand-text">
+                <h1>CyberShield Ultra Engine</h1>
+                <p>v2.5 // SECURE INTEL CORE</p>
+            </div>
+        </div>
+        <div class="author-badge">
+            <i class="fa-solid fa-code-branch"></i>
+            تطوير: همام علي ياسين
+        </div>
+    </header>
+
+    <div class="cyber-card">
+        <div class="card-header">
+            <i class="fa-solid fa-terminal"></i>
+            <h2>وحدة فحص وتحليل النطاقات (URL Threat Auditor)</h2>
+        </div>
+        <div class="input-group input-wrapper">
+            <input type="text" id="urlInput" placeholder="أدخل رابط الهدف للتفتيش الرقمي (مثال: https://example.com)">
+            <button class="btn-action btn-cyan" onclick="checkUrl()">
+                <i class="fa-solid fa-radar"></i> تنفيذ التفتيش الأمني
+            </button>
+        </div>
+        <div id="urlResult" class="output-panel"></div>
+    </div>
+
+    <div class="cyber-card">
+        <div class="card-header">
+            <i class="fa-solid fa-brain" style="color: var(--accent-purple);"></i>
+            <h2>مستشار الأبحاث والاختراق الأخلاقي (Cyber Intelligence AI)</h2>
+        </div>
+        <div class="input-group input-wrapper">
+            <textarea id="aiQuery" placeholder="اكتب سؤالك التخصصي في الهندسة العكسية، الثغرات، أو التشفير..."></textarea>
+            <button class="btn-action btn-purple" onclick="askAI()">
+                <i class="fa-solid fa-microchip"></i> تحليل بواسطة محرك الذكاء الاصطناعي
+            </button>
+        </div>
+        <div id="aiResult" class="output-panel" style="border-right-color: var(--accent-purple);"></div>
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة منصة <strong>CyberShield AI Engine</strong> © 2026<br>
+        تصميم وتطوير خبير الأمن السيبراني: <strong>همام علي ياسين</strong>
+    </footer>
+</div>
+
+<script>
+    async function checkUrl() {
+        const url = document.getElementById('urlInput').value.trim();
+        const resBox = document.getElementById('urlResult');
+        if (!url) return alert('يرجى كتابة الرابط أولاً.');
+
+        resBox.style.display = 'block';
+        resBox.innerText = '[+] جاري تفتيش النطاق وتحليل مستوى الخطورة...';
+
+        try {
+            const res = await fetch('/api/audit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url })
+            });
+            const data = await res.json();
+            
+            resBox.innerHTML = `
+<b>[TARGET]:</b> ${data.domain}
+<b>[PROTOCOL]:</b> ${data.protocol}
+<b>[RISK SCORE]:</b> ${data.risk_score} / 100
+<b>[STATUS]:</b> ${data.security_status}
+<b>[ACTION]:</b> ${data.recommended_action}
+            `;
+        } catch (e) {
+            resBox.innerText = '[!] تعذر فحص الهدف، يرجى مراجعة الرابط.';
+        }
+    }
+
+    async function askAI() {
+        const query = document.getElementById('aiQuery').value.trim();
+        const resBox = document.getElementById('aiResult');
+        if (!query) return alert('يرجى كتابة الاستفسار السيبراني أولاً.');
+
+        resBox.style.display = 'block';
+        resBox.innerText = '[*] جاري الاتصال بمحرك التحليل السيبراني وتركيب الاستجابة...';
+
+        try {
+            const res = await fetch('/api/ai-consultant', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: query })
+            });
+            const data = await res.json();
+            resBox.innerText = data.ai_response;
+        } catch (e) {
+            resBox.innerText = '[!] خطأ في جلب استجابة الذكاء الاصطناعي.';
+        }
+    }
+</script>
+
+</body>
+</html>
