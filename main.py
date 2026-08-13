@@ -55,7 +55,8 @@ async def audit_target(data: AuditRequest):
 @app.post("/api/ai-consultant")
 async def ai_consultant(data: AIAnalysisRequest):
     try:
-        endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
+        # استخدام موديل gemini-1.5-flash المعتمد للـ API Keys الرسمية
+        endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_KEY}"
         
         payload = {
             "contents": [{
